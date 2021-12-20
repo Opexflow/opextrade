@@ -1,0 +1,17 @@
+{
+  "name": "tconnector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tconnector.js",
+  "license": "ISC",
+  "scripts": {
+    "start": "serve .",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^8.3.0"
+  },
+  "dependencies": {
+    "serve": "^13.0.2"
+  }
+}

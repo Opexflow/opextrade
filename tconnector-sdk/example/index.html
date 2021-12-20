@@ -1,0 +1,19 @@
+<!Doctype html>
+
+<html>
+  <body>
+    <script type="module">
+      import Tconnector from "/tconnector.js"
+            const tconnector = Tconnector.create({ 
+                isHFT: false,
+                host: "176.124.99.109",
+                port: "12345"
+            })
+            window.tconnector = tconnector
+            !(async () => {
+                const resp = await tconnector.api.connect({ login:"FZTC17102A", password: "newpass", host: "tr1.finam.ru", port: "3900" })
+                console.log(resp) 
+            })()
+    </script>
+  </body>
+</html>
