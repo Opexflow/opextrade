@@ -1,6 +1,5 @@
 export const en = {
-  '/auth': {
-    auth: 'Authentication',
+  '/': {
+    auth: '',
   },
-  '/': {},
 }
