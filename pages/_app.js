@@ -1,5 +1,6 @@
 import HeadHTML from '../components/layout/HeadHTML'
 import '../styles/globals.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import App from 'next/app'
 import { IntlProvider } from 'react-intl'
 import useLang from '../content/locale'
