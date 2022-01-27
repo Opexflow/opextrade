@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 
 const Editor = dynamic(
   () => {
-      return import("../components/FinamAuth/FinamAuth");
+      return import("../components/Demo/DemoComp");
    },{ loading: () => null, ssr: false }
 );
 

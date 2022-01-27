@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Button } from 'reactstrap';
+import { Row, Button, Container } from 'reactstrap';
 import Chart from 'react-apexcharts';
 import ApexCharts from 'apexcharts';
 import { Colxx, Separator } from '../common/CustomBootstrap';
@@ -9,7 +9,7 @@ import Logs from '../../containers/dashboards/Logs'
 
 
 
-class FinamAuth extends Component {    
+class DemoComp extends Component {    
   constructor(props) {
       super(props);
 
@@ -176,7 +176,7 @@ class FinamAuth extends Component {
       const time = this.state.series[0].data.length && this.state.series[0].data[this.state.series[0].data.length-1].x;
 
       return (
-          <>
+          <Container>
               <Row>
                   <Colxx xxs="12">
                       {this.props.match && <Breadcrumb heading="menu.start" match={this.props.match} />}
@@ -356,9 +356,9 @@ class FinamAuth extends Component {
             <Row>
              <Logs logsData={this.state.logs} />
             </Row>
-        </>
+        </Container>
       );
   }
 }
 
-export default FinamAuth
+export default DemoComp
