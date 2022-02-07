@@ -1,5 +1,9 @@
 ## Welcome
 
+##Prerequisites
+
+- Node.js 12.24.7
+
 ## Getting Started
 
 First, run the development server:
