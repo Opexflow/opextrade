@@ -23,7 +23,7 @@ function ChangePassFinam({ changePage }) {
   const handleOnSubmit = async () => {
     const tconnector = Tconnector.getTc({
       isHFT: false,
-      host: '176.124.99.109',
+      host: '127.0.0.1',
       port: '12345',
     })
     // console.log({ oldpass, newpass })

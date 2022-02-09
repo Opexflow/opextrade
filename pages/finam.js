@@ -45,7 +45,7 @@ function FinamAuth() {
     const [host, port] = addresValue.split(':')
     const tconnector = await Tconnector.getTc({
       isHFT,
-      host: '176.124.99.109',
+      host: '127.0.0.1',
       port: '12345',
     })
 
