@@ -14,6 +14,14 @@
   "dependencies": {
     "@stoqey/ib": "^1.2.15",
     "@tinkoff/invest-openapi-js-sdk": "^1.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-no-use-extend-native": "^0.5.0",
+    "eslint-plugin-optimize-regex": "^1.2.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-sonarjs": "^0.11.0",
     "next": "12.0.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -21,7 +29,7 @@
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
-    "eslint": "7.32.0",
+    "eslint": "^7.32.0",
     "eslint-config-next": "12.0.4"
   }
 }
