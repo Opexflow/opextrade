@@ -54,7 +54,10 @@ const BrokerIcon = styled.div`
 `
 
 function Home() {
-  const { f } = useIntl()
+// initialize socket connection
+
+
+const { f } = useIntl()
   return (
     <>
       <HeaderLayout />
@@ -66,7 +69,7 @@ function Home() {
             <BrokerTitle>Finam</BrokerTitle>
           </AuthWithLink>
         </Link>
-        {/* <Link passHref href="/tinkoff">
+        <Link passHref href="/tinkoff">
           <AuthWithLink>
             <Image
               width="70"
@@ -76,21 +79,20 @@ function Home() {
             />
             <BrokerTitle>Tinkoff</BrokerTitle>
           </AuthWithLink>
-        </Link> */}
+        </Link>
         {/* <Link passHref href="/Ib"> */}
-        {/* <AuthWithLink disabled>
+        <AuthWithLink disabled>
           <Image width="70" height="70" src="/images/ib.png" alt="Ib" />
           <BrokerTitle>IB</BrokerTitle>
-        </AuthWithLink> */}
+        </AuthWithLink>
         {/* </Link> */}
 
-        {/* <Link passHref href="/demo">
+        <Link passHref href="/demo">
           <AuthWithLink>
             <BrokerIcon>📈</BrokerIcon>
             <BrokerTitle>Demo</BrokerTitle>
           </AuthWithLink>
-        </Link> */}
-
+        </Link>
       </Main>
     </>
   )

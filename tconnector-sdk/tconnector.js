@@ -26,7 +26,7 @@ class Api {
     })
     try {
       const response = await fetch(url, {
-        method: 'POST',
+        method: 'GET',
       })
       return response.text()
     } catch (e) {
