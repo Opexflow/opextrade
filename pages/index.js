@@ -54,7 +54,10 @@ const BrokerIcon = styled.div`
 `
 
 function Home() {
-  const { f } = useIntl()
+// initialize socket connection
+
+
+const { f } = useIntl()
   return (
     <>
       <HeaderLayout />
@@ -90,7 +93,6 @@ function Home() {
             <BrokerTitle>Demo</BrokerTitle>
           </AuthWithLink>
         </Link>
-
       </Main>
     </>
   )

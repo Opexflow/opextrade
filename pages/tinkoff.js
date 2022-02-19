@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import HeaderLayout from '../../components/layout/HeaderLayout'
-import { ButtonStyled } from '../../styled/Buttons'
-import { AuthenticationTitle } from '../../styled/Texts'
-import { AuthInput, AuthForm } from '../../styled/inputs'
+import HeaderLayout from '../components/layout/HeaderLayout'
+import { ButtonStyled } from '../styled/Buttons'
+import { AuthenticationTitle } from '../styled/Texts'
+import { AuthInput, AuthForm } from '../styled/inputs'
 
 const Main = styled.main`
   margin-top: 45px;
