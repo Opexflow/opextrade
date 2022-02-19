@@ -5,7 +5,7 @@ import App from 'next/app'
 import { IntlProvider } from 'react-intl'
 import useLang from '../content/locale'
 import { useRouter } from 'next/router'
-
+import 'antd/dist/antd.css';
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const { messages, locale, defaultLocale } = useLang(router)
