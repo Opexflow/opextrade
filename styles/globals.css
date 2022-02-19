@@ -29,3 +29,58 @@ button {
 a {
   text-decoration: none;
 }
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+  border-bottom: 5px solid #0d6efd !important;
+  color: #0d6efd !important;
+  border-color: #fff #fff #0d6efd #fff !important;
+}
+.nav-link{
+  color: #495057 !important;
+}
+.nav-tabs .nav-link{
+  cursor: pointer;
+}
+.watchList {
+  text-align: right;
+  font-size: 30px;
+  color: #0d6efd;
+}
+.main_content{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+@media (max-width: 767px){
+  .watchList {
+    text-align: right;
+    font-size: 30px;
+    color: #0d6efd;
+    margin-bottom: -46px;
+    position: relative;
+    z-index: 1;
+  }
+  .buySellButton {
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background: #fff;
+    padding: 15px;
+  }
+  ul.navbar.nav.nav-tabs li a {
+    white-space: nowrap;
+  }
+  span.highcharts-title {
+    display: inline-block;
+    width: 100%;
+    text-align: left !important;
+    left: 0 !important;
+  }
+  .tabContent{
+    padding-bottom: 2em;
+  }
+  
+}
