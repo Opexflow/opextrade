@@ -81,7 +81,7 @@ function FinamAuth() {
     //   console.log(message)
     // })
     setIsLoading(false)
-    if (!res.error) push('/')
+    // if (!res.error) push('/')
   }
   return;
 }
