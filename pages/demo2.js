@@ -2,6 +2,12 @@ import React, { Component, useEffect, useState } from 'react';
 import dynamic from "next/dynamic";
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts/highstock'
+// import Indicators from "highcharts/indicators/indicators-all.js";
+// import DragPanes from "highcharts/modules/drag-panes.js";
+// import AnnotationsAdvanced from "highcharts/modules/annotations-advanced.js";
+// import PriceIndicator from "highcharts/modules/price-indicator.js";
+// import FullScreen from "highcharts/modules/full-screen.js";
+// import StockTools from "highcharts/modules/stock-tools.js";
 import axios from 'axios';
 import { ArrowUpOutlined  } from '@ant-design/icons';
 import classnames from 'classnames';
@@ -10,8 +16,15 @@ import {
     TabContent, TabPane, Nav,
     NavItem, NavLink, Row, Col, Container, Button, Modal, ModalHeader,ModalBody, ModalFooter
 } from 'reactstrap';
+
   
-  
+  // init the module
+// Indicators(Highcharts);
+// DragPanes(Highcharts);
+// AnnotationsAdvanced(Highcharts);
+// PriceIndicator(Highcharts);
+// FullScreen(Highcharts);
+// StockTools(Highcharts);
   
   const Demo2 = () => {
 
@@ -108,6 +121,38 @@ import {
             selected: 1,
             inputEnabled: false
         },
+        tooltip: {
+            shape: 'square',
+            headerShape: 'callout',
+            borderWidth: 0,
+            shadow: false,
+            positioner: function (width, height, point) {
+                var chart = this.chart,
+                    position;
+
+                if (point.isHeader) {
+                    position = {
+                        x: Math.max(
+                            // Left side limit
+                            chart.plotLeft,
+                            Math.min(
+                                point.plotX + chart.plotLeft - width / 2,
+                                // Right side limit
+                                chart.chartWidth - width - chart.marginRight
+                            )
+                        ),
+                        y: point.plotY
+                    };
+                } else {
+                    position = {
+                        x: point.series.chart.plotLeft,
+                        y: point.series.yAxis.top - chart.plotTop
+                    };
+                }
+
+                return position;
+            }
+        },
         title: {
           text: `<b>${datas.name}</b>`,
           style: {
@@ -146,7 +191,19 @@ import {
           tooltip: {
             valueDecimals: 2
           }
-        }]
+        }],
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 800
+                },
+                chartOptions: {
+                    rangeSelector: {
+                        inputEnabled: false
+                    }
+                }
+            }]
+        }
       }
       // State for current active Tab
         const [currentActiveTab, setCurrentActiveTab] = useState('1');
@@ -401,8 +458,8 @@ import {
       }
       const content = (
             <div>
-            <p>Add to WatchList</p>
-        </div>
+                <p>Add to WatchList</p>
+            </div>
       )
 
   return <div style={mainContainer}>

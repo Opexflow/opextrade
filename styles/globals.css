@@ -3,6 +3,8 @@
   margin: 0;
   box-sizing: border-box;
 }
+@import "https://code.highcharts.com/css/stocktools/gui.css";
+@import "https://code.highcharts.com/css/annotations/popup.css";
 
 html,
 body {
