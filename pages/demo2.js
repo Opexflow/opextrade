@@ -16,7 +16,11 @@ import {
     TabContent, TabPane, Nav,
     NavItem, NavLink, Row, Col, Container, Button, Modal, ModalHeader,ModalBody, ModalFooter
 } from 'reactstrap';
-
+const Editor = dynamic(
+    () => {
+        return import("./demo3");
+     },{ loading: () => null, ssr: false }
+  );
   
   // init the module
 // Indicators(Highcharts);
@@ -30,6 +34,7 @@ import {
 
     const [data, setData] = useState([])
     const [price, setPrice] = useState({})
+    const [marker, setMarker] = useState('')
     // Modal open state
     const [modal, setModal] = React.useState(false);
     const [modal1, setModal1] = React.useState(false);
@@ -38,26 +43,30 @@ import {
     const toggle1 = () => setModal(!modal);
     const toggle2 = () => setModal1(!modal1);
 
-      useEffect(() => {
-        axios.get('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/new-intraday.json').then((data) => {
+      useEffect(async() => {
+        axios.get('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/new-intraday.json').then(async(data) => {
             setData(data.data)
             let price = {
                 high: data.data.slice(-1)[0][2],
-                low: data.data.slice(-1)[0][3]
+                low: data.data.slice(-1)[0][3],
+                date: data.data.slice(-10)[0][0]
             }
             setPrice(price)
+            console.log("data", data[data.length - 1])
+            await setMarker(data[data.length - 1])
+             // Milliseconds in a day
+
         }) 
       }, [])
-
+      
       const datas = {
           name: 'SBI',
           price: '12,669.69',
           up: '5.20',
           down: '',
-          percentage: '1.81'
+          percentage: '1.81',
+          days: 24 * 36e5
       }
-      
-
       const options = {
           chart:{
               height: 550
@@ -121,38 +130,6 @@ import {
             selected: 1,
             inputEnabled: false
         },
-        tooltip: {
-            shape: 'square',
-            headerShape: 'callout',
-            borderWidth: 0,
-            shadow: false,
-            positioner: function (width, height, point) {
-                var chart = this.chart,
-                    position;
-
-                if (point.isHeader) {
-                    position = {
-                        x: Math.max(
-                            // Left side limit
-                            chart.plotLeft,
-                            Math.min(
-                                point.plotX + chart.plotLeft - width / 2,
-                                // Right side limit
-                                chart.chartWidth - width - chart.marginRight
-                            )
-                        ),
-                        y: point.plotY
-                    };
-                } else {
-                    position = {
-                        x: point.series.chart.plotLeft,
-                        y: point.series.yAxis.top - chart.plotTop
-                    };
-                }
-
-                return position;
-            }
-        },
         title: {
           text: `<b>${datas.name}</b>`,
           style: {
@@ -168,7 +145,13 @@ import {
             "fontSize": "20px",
             useHTML: true
         },
-        
+        tooltip: {
+            style: {
+                width: '200px'
+            },
+            valueDecimals: 4,
+            shared: true
+        },
         scrollbar: {
             enabled: false
         },
@@ -191,20 +174,32 @@ import {
           tooltip: {
             valueDecimals: 2
           }
-        }],
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 800
-                },
-                chartOptions: {
-                    rangeSelector: {
-                        inputEnabled: false
-                    }
-                }
-            }]
+        },
+        {
+            type: 'flags',
+            name: 'Flags on series',
+            data: [{
+                x: price.date,
+                title: 'On series'
+            }],
+            onSeries: 'dataseries',
+            shape: 'squarepin'
         }
+    ],
+        // responsive: {
+        //     rules: [{
+        //         condition: {
+        //             maxWidth: 800
+        //         },
+        //         chartOptions: {
+        //             rangeSelector: {
+        //                 inputEnabled: false
+        //             }
+        //         }
+        //     }]
+        // }
       }
+      
       // State for current active Tab
         const [currentActiveTab, setCurrentActiveTab] = useState('1');
     
@@ -468,11 +463,12 @@ import {
             <Button>+</Button>
         </Popover>
     </div>
-    <HighchartsReact
+    {/* <HighchartsReact
         highcharts={Highcharts}
         constructorType={'stockChart'}
         options={options}
-    />
+    /> */}
+    <Editor/>
     <StockTab />
     
   </div>

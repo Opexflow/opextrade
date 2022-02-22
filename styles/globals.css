@@ -59,9 +59,9 @@ a {
     text-align: right;
     font-size: 30px;
     color: #0d6efd;
-    margin-bottom: -46px;
+    margin-bottom: 0px;
     position: relative;
-    z-index: 1;
+    z-index: 9;
   }
   .buySellButton {
     position: fixed;
