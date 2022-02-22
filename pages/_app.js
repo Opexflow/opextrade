@@ -43,7 +43,7 @@ MyApp.getInitialProps = async (appContext) => {
       const accept_languages =
         appContext.ctx.req.headers['accept-language'].match(regex)
       const accept_language =
-        locales.find((l) => accept_languages.includes(l)) || 'en'
+      locales.find((l) => accept_languages.includes(l)) || 'en'
 
       const path = appContext.router.asPath.split('/')
       path.splice(1, 1)

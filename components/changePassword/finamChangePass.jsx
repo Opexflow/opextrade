@@ -7,7 +7,7 @@ import useInputOnChange from '../../hooks-utils/useInputOnChange'
 import Tconnector from '../../tconnector-sdk/tconnector'
 import { useRouter } from 'next/dist/client/router'
 import{useState,useEffect} from 'react'
-import {socketio,initiateSocketConnection,disconnectSocket,getUpdate,getUpdate2,sendData,passwordChangeError} from '../../pages/socketio';
+import {socketio} from '../../pages/socketio';
 const Main = styled.main`
   margin-top: 45px;
   display: flex;
@@ -42,6 +42,7 @@ function ChangePassFinam({ changePage }) {
   const handleOnSubmit =async() => {
     setIsLoading(true)
     setIsSubmit(true)
+    setIsNotCorrect('')
   if(oldpass&&newpass)
   {
     const tconnector = Tconnector.getTc({
@@ -52,7 +53,7 @@ function ChangePassFinam({ changePage }) {
     // console.log({ oldpass, newpass })
     const res = await tconnector.api.change_pass({ oldpass, newpass })
     console.log({ res })
-    // if (!res.error&&!isNotCorrect) push('/')
+    if (!res.error) push('/')
   }
   setIsLoading(false)
   console.log(`our state ${isNotCorrect}`)

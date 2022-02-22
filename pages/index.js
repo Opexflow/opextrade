@@ -58,6 +58,7 @@ function Home() {
 
 
 const { f } = useIntl()
+console.log(f)
   return (
     <>
       <HeaderLayout />

@@ -48,18 +48,23 @@ function FinamAuth() {
   }
   useEffect(() => {
     socketio().on("login-error", async (res) => {
-      setIslogincorrect(res)
+    setIslogincorrect(res)
     })
+    if(islogincorrect)
+{
+  setIsLoading(false)
+}
     return ()=>{
      socketio().off("login-error")
    }
+   
   }
   , [socketio(),islogincorrect]);
 //subscribe to event
 
-
   const handleOnSubmit = async () => {
   getUpdate2()
+  setIslogincorrect('')
   setIsSubmit(true)
   if(loginValue&&passValue)
   {
@@ -77,11 +82,12 @@ function FinamAuth() {
       host,
       port,
     })
+    console.log(res.error)
     // socket.on('another',message=>{
     //   console.log(message)
     // })
-    setIsLoading(false)
-    // if (!res.error) push('/')
+    
+    if (!res.error) push('/')
   }
   return;
 }

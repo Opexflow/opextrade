@@ -28,8 +28,9 @@ class Api {
       const response = await fetch(url, {
         method: 'GET',
       })
-      return response.text()
+      return response.json()
     } catch (e) {
+      console.log("error")
       console.log(e)
       return e
     }

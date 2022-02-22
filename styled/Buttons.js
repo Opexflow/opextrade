@@ -22,6 +22,7 @@ export const SocketInfo = styled.div`
 export const WrongLogin = styled.div`
   color: brown;
   padding-top:10px;
+  padding-bottom:7px;
   font-size: 25px;
 `
 export const InputError = styled.div`
