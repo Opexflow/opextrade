@@ -1,5 +1,11 @@
 import HeadHTML from '../components/layout/HeadHTML'
 import '../styles/globals.css'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'highcharts/css/stocktools/gui.css'
+import 'highcharts/css/annotations/popup.css'
+import './widget.js'
+
 import App from 'next/app'
 import { IntlProvider } from 'react-intl'
 import useLang from '../content/locale'

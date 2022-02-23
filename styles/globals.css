@@ -78,8 +78,7 @@ a {
   span.highcharts-title {
     display: inline-block;
     width: 100%;
-    text-align: left !important;
-    left: 0 !important;
+    text-align: center !important;
   }
   .tabContent{
     padding-bottom: 2em;
