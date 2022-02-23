@@ -2,12 +2,12 @@ import React, { Component, useEffect, useState } from 'react';
 import dynamic from "next/dynamic";
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts/highstock'
-// import Indicators from "highcharts/indicators/indicators-all.js";
-// import DragPanes from "highcharts/modules/drag-panes.js";
-// import AnnotationsAdvanced from "highcharts/modules/annotations-advanced.js";
-// import PriceIndicator from "highcharts/modules/price-indicator.js";
-// import FullScreen from "highcharts/modules/full-screen.js";
-// import StockTools from "highcharts/modules/stock-tools.js";
+import Indicators from "highcharts/indicators/indicators-all.js";
+import DragPanes from "highcharts/modules/drag-panes.js";
+import AnnotationsAdvanced from "highcharts/modules/annotations-advanced.js";
+import PriceIndicator from "highcharts/modules/price-indicator.js";
+import FullScreen from "highcharts/modules/full-screen.js";
+import StockTools from "highcharts/modules/stock-tools.js";
 import axios from 'axios';
 import { ArrowUpOutlined  } from '@ant-design/icons';
 import classnames from 'classnames';
@@ -16,6 +16,12 @@ import {
     TabContent, TabPane, Nav,
     NavItem, NavLink, Row, Col, Container, Button, Modal, ModalHeader,ModalBody, ModalFooter
 } from 'reactstrap';
+import { volumeData } from './volumeData';
+import { priceData } from './priceData';
+import { TailSpin } from 'react-loader-spinner';
+
+
+
 const Editor = dynamic(
     () => {
         return import("./demo3");
@@ -23,18 +29,19 @@ const Editor = dynamic(
   );
   
   // init the module
-// Indicators(Highcharts);
-// DragPanes(Highcharts);
-// AnnotationsAdvanced(Highcharts);
-// PriceIndicator(Highcharts);
-// FullScreen(Highcharts);
-// StockTools(Highcharts);
+Indicators(Highcharts);
+DragPanes(Highcharts);
+AnnotationsAdvanced(Highcharts);
+PriceIndicator(Highcharts);
+FullScreen(Highcharts);
+StockTools(Highcharts);
   
   const Demo2 = () => {
 
     const [data, setData] = useState([])
     const [price, setPrice] = useState({})
-    const [marker, setMarker] = useState('')
+    const [marker, setMarker] = useState({})
+    const [volume, setVolume] = useState([])
     // Modal open state
     const [modal, setModal] = React.useState(false);
     const [modal1, setModal1] = React.useState(false);
@@ -49,11 +56,28 @@ const Editor = dynamic(
             let price = {
                 high: data.data.slice(-1)[0][2],
                 low: data.data.slice(-1)[0][3],
-                date: data.data.slice(-10)[0][0]
+                date: data.data.slice(-20)[0][0]
             }
             setPrice(price)
-            console.log("data", data[data.length - 1])
-            await setMarker(data[data.length - 1])
+            let volume_filter = [] 
+            for(var i = 0; i < data.data.length; i++){
+                volume_filter.push([data.data[i][0], Math.floor(Math.random() * 1000000000)])
+            }
+            setVolume([volume_filter])
+            let buy_price = []
+            let sell_price = []
+            var indexOfMinPrice = 100;
+            for(var j = 1*101; j < data.data.length; j+=100){
+                if(data.data[j][2] < data.data[indexOfMinPrice][2]){
+                    indexOfMinPrice = j
+                    sell_price.push({x: data.data[j][0]})
+                } else {
+                    indexOfMinPrice = j
+                    buy_price.push({x: data.data[j][0]})
+                }
+            }
+            setMarker({buy_price: buy_price, sell_price: sell_price})
+            console.log("data",sell_price, buy_price, marker)
              // Milliseconds in a day
 
         }) 
@@ -71,10 +95,26 @@ const Editor = dynamic(
           chart:{
               height: 550
           },
+          yAxis: [{
+            labels: {
+                align: 'left'
+            },
+            height: '80%',
+            resize: {
+                enabled: true
+            }
+        }, {
+            labels: {
+                align: 'left'
+            },
+            top: '80%',
+            height: '20%',
+            offset: 0
+        }],
         rangeSelector: {
             buttons: [{
                 type: 'minute',
-                count: 10,
+                count: 30,
                 text: '1m',
                 dataGrouping: {
                   forced: true,
@@ -84,22 +124,32 @@ const Editor = dynamic(
                 }
             },{
                 type: 'minute',
-                count: 50,
+                count: 5,
                 text: '5m',
                 dataGrouping: {
                   forced: true,
                   units: [
-                    ['minute', [5]]
+                    ['minute', [1]]
                   ]
                 }
             },{
                 type: 'minute',
-                count: 100,
+                count: 15,
                 text: '15m',
                 dataGrouping: {
                   forced: true,
                   units: [
-                    ['minute', [10]]
+                    ['minute', [1]]
+                  ]
+                }
+            },{
+                type: 'minute',
+                count: 30,
+                text: '30m',
+                dataGrouping: {
+                  forced: true,
+                  units: [
+                    ['minute', [5]]
                   ]
                 }
             },{
@@ -109,7 +159,7 @@ const Editor = dynamic(
                 // dataGrouping: {
                 //   forced: true,
                 //   units: [
-                //     ['minute', [1]]
+                //     ['minute', [20]]
                 //   ]
                 // }
             }, {
@@ -119,7 +169,7 @@ const Editor = dynamic(
                 // dataGrouping: {
                 //   forced: true,
                 //   units: [
-                //     ['minute', [20]]
+                //     ['hour', [1]]
                 //   ]
                 // }
             }, {
@@ -171,33 +221,54 @@ const Editor = dynamic(
           type: 'candlestick',
           name: 'SBI',
           data: data,
+          id: 'myId',
           tooltip: {
             valueDecimals: 2
           }
         },
         {
+            type: 'column',
+            id: 'sbi-volume',
+            name: 'SBI Volume',
+            data: volume[0],
+            yAxis: 1
+        },
+        {
             type: 'flags',
+            useHTML: true,
             name: 'Flags on series',
-            data: [{
-                x: price.date,
-                title: 'On series'
-            }],
-            onSeries: 'dataseries',
-            shape: 'squarepin'
+            data: marker.buy_price,
+            title: '<span style="color: green">↑Buy</span>',
+            onSeries: 'myId',
+            shape: 'squarepin',
+            color: 'transparent',
+            fontSize: '18px'
+        },
+        {
+            type: 'flags',
+            useHTML: true,
+            name: 'Flags on series',
+            data: marker.sell_price,
+            title: '<span style="color: red">↓Sell</span>',
+            onSeries: 'myId',
+            shape: 'squarepin',
+            color: 'transparent',
+            fontSize: '18px',
+            y: 15
         }
     ],
-        // responsive: {
-        //     rules: [{
-        //         condition: {
-        //             maxWidth: 800
-        //         },
-        //         chartOptions: {
-        //             rangeSelector: {
-        //                 inputEnabled: false
-        //             }
-        //         }
-        //     }]
-        // }
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 800
+                },
+                chartOptions: {
+                    rangeSelector: {
+                        inputEnabled: false
+                    }
+                }
+            }]
+        }
       }
       
       // State for current active Tab
@@ -463,12 +534,12 @@ const Editor = dynamic(
             <Button>+</Button>
         </Popover>
     </div>
-    {/* <HighchartsReact
+    <HighchartsReact
         highcharts={Highcharts}
         constructorType={'stockChart'}
         options={options}
-    /> */}
-    <Editor/>
+    />
+    {/* <Editor /> */}
     <StockTab />
     
   </div>

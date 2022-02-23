@@ -4,9 +4,14 @@ import dynamic from "next/dynamic";
 
 const Editor = dynamic(
   () => {
-      return import("./demo3");
+      return import("./demo2");
    },{ loading: () => null, ssr: false }
 );
+// const Editor = dynamic(
+//   () => {
+//       return import("./demo4");
+//    },{ loading: () => null, ssr: false }
+// );
 
 const Demo = () => {
   return <div>
