@@ -1,13 +1,20 @@
 import HeadHTML from '../components/layout/HeadHTML'
 import '../styles/globals.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import App from 'next/app'
 import { IntlProvider } from 'react-intl'
 import useLang from '../content/locale'
 import { useRouter } from 'next/router'
-
+import { useEffect } from "react";
+import {initiateSocketConnection,disconnectSocket,getUpdate,getUpdate2,sendData,passwordChangeError} from '../pages/socketio';
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
+  useEffect(() => {
+    initiateSocketConnection();
+    return () => {
+      console.log("unmount login page")
+      disconnectSocket();
+    }
+  }, []);
   const { messages, locale, defaultLocale } = useLang(router)
 
   return (
@@ -36,7 +43,7 @@ MyApp.getInitialProps = async (appContext) => {
       const accept_languages =
         appContext.ctx.req.headers['accept-language'].match(regex)
       const accept_language =
-        locales.find((l) => accept_languages.includes(l)) || 'en'
+      locales.find((l) => accept_languages.includes(l)) || 'en'
 
       const path = appContext.router.asPath.split('/')
       path.splice(1, 1)
