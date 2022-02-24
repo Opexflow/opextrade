@@ -53,6 +53,10 @@ a {
   flex-direction: column;
   margin: 15px 0;
 }
+.mainContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 
 @media (max-width: 767px){
   .watchList {
@@ -84,4 +88,7 @@ a {
     padding-bottom: 2em;
   }
   
+  .mainContainer{
+    grid-template-columns: 1fr;
+  }
 }
