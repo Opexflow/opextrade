@@ -20,7 +20,7 @@ import { volumeData } from './volumeData';
 import { priceData } from './priceData';
 import { TailSpin } from 'react-loader-spinner';
 import TradingViewWidget, {Themes} from 'react-tradingview-widget';
-
+import { AdvancedChart } from "react-tradingview-widget";
   
   // init the module
 Indicators(Highcharts);
@@ -30,7 +30,7 @@ PriceIndicator(Highcharts);
 FullScreen(Highcharts);
 StockTools(Highcharts);
   
-  const Demo2 = () => {
+  const Demo4 = () => {
 
     const [data, setData] = useState([])
     const [price, setPrice] = useState({})
@@ -528,19 +528,27 @@ StockTools(Highcharts);
             <Button>+</Button>
         </Popover>
     </div>
-        <div className='mainContainer'>
-        <HighchartsReact
-            highcharts={Highcharts}
-            constructorType={'stockChart'}
-            options={options}
+    <div className='mainContainer'>    
+        <TradingViewWidget
+                        height='400'
+                        width='600'
+                        // autosize
+                        hide_side_toolbar={false}
+                        symbol="NASDAQ:AAPL"
+                        theme={Themes.LIGHT}
+                        watchlist={["BINANCE:BTCUSDT"]}
+                        interval = "D"
+                        locale="us"
+                        container_id= "tradingview_a611a"
+                        custom_indicators_getter = {data}
         />
         {/* <Editor /> */}
-            <div>
-                <StockTab />
-            </div>
+        <div>
+            <StockTab />
         </div>
+    </div>
     
   </div>
 }
 
-export default Demo2
+export default Demo4
