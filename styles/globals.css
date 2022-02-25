@@ -55,7 +55,18 @@ a {
 }
 .mainContainer{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5em;
+  width: 100%;
+}
+.tv-embed-widget-wrapper__header.js-embed-widget-head{
+  display: none;
+}
+.tv-widget-watch-list__head-embed.js-widget-head{
+  display: none;
+}
+.js-timeframes.tv-widget-watch-list__timeframe{
+  display: none;
 }
 
 @media (max-width: 767px){
