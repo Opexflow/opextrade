@@ -72,7 +72,7 @@ function FinamAuth() {
     const [host, port] = addresValue.split(':')
     const tconnector = Tconnector.getTc({
       isHFT,
-      host: 'localhost',
+      host: '192.168.1.49',
       port: '12345',
     })
 
@@ -130,7 +130,7 @@ function FinamAuth() {
         </AuthForm>
         {islogincorrect&&<WrongLogin>{islogincorrect}</WrongLogin>}
         {!isLoading &&<ButtonStyled onClick={handleOnSubmit}>Submit</ButtonStyled>}
-        {isLoading && <LoadingStyled>Loding....</LoadingStyled>}
+        {isLoading&&<LoadingStyled>Loding....</LoadingStyled>}
       </Main>
     </>
   )

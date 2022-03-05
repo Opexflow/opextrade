@@ -47,7 +47,7 @@ function ChangePassFinam({ changePage }) {
   {
     const tconnector = Tconnector.getTc({
       isHFT: false,
-      host: 'localhost',
+      host: '192.168.1.49',
       port: '12345',
     })
     // console.log({ oldpass, newpass })
