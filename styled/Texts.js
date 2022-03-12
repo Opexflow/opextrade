@@ -5,11 +5,11 @@ export const AuthenticationTitle = styled.h1`
   text-align: center;
   font-weight: bold;
   font-size: 38px;
-  line-height: 70px;
+  line-height: 60px;
   color: #0b074b;
   border-bottom: 5px solid #d11000;
   @media (min-width: 667px) {
-    line-height: 90px;
+    line-height: 60px;
     min-width: 500px;
     max-width: 70%;
     font-size: 55px;
