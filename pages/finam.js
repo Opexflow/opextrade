@@ -7,10 +7,10 @@ import { AuthInput, AuthForm } from '../styled/inputs'
 import Checkbox from '../components/checkbox/Checkbox'
 import Tconnector from '../tconnector-sdk/tconnector'
 import useInputOnChange from '../hooks-utils/useInputOnChange'
-import ChangePassFinam from '../components/changePassword/finamChangePass'
 import { useRouter } from 'next/dist/client/router'
 import { useEffect } from "react";
-import {socketio,initiateSocketConnection,disconnectSocket,getUpdate,getUpdate2,sendData,passwordChangeError} from '../pages/socketio';
+import Link from 'next/link'
+import {socketio,getUpdate2} from '../pages/socketio';
 const Main = styled.main`
   margin-top: 45px;
   display: flex;
@@ -72,7 +72,7 @@ function FinamAuth() {
     const [host, port] = addresValue.split(':')
     const tconnector = Tconnector.getTc({
       isHFT,
-      host: '192.168.1.49',
+      host: '127.0.0.1',
       port: '12345',
     })
 
@@ -87,11 +87,10 @@ function FinamAuth() {
     //   console.log(message)
     // })
     
-    if (!res.error) push('/')
+    if (!res.error) push('/logs')
   }
   return;
 }
-  if (changePassPage) return <ChangePassFinam  changePage={changePage} />
   return (
     <>
       <HeaderLayout />
@@ -116,9 +115,11 @@ function FinamAuth() {
             onChange={addresOnChange}
           />
           {<WrongLogin></WrongLogin>}
-          <ChangePassLinkStyled onClick={changePage}>
+          <Link href='changepassword'>
+          <ChangePassLinkStyled>
             change pass
           </ChangePassLinkStyled>
+          </Link>
           <CheckboxesWrapper>
             <Checkbox handleOnChange={handleOnHFTchange} checkedBox={isHFT}>
               HFT

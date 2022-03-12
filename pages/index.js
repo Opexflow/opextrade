@@ -54,8 +54,6 @@ const BrokerIcon = styled.div`
 `
 
 function Home() {
-// initialize socket connection
-
 
 const { f } = useIntl()
 console.log(f)

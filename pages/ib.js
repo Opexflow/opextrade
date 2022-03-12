@@ -7,7 +7,7 @@ function Ib() {
 export const getServerSideProps = () => {
   const ib = new IBApi({
     clientId: 0,
-    host: '192.168.1.49',
+    host: '127.0.0.1',
     port: 7497,
   })
 
