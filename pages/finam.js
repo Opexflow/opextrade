@@ -11,6 +11,14 @@ import { useRouter } from 'next/dist/client/router'
 import { useEffect } from "react";
 import Link from 'next/link'
 import {socketio,getUpdate2} from '../pages/socketio';
+
+const os = require('os');
+const ip = require('ip');
+const ni = os.networkInterfaces();
+const HOST_IP = ni['lo']?.[0]?.address || ni['lo0']?.[0]?.address || ip.address();
+
+console.log(HOST_IP);
+
 const Main = styled.main`
   margin-top: 45px;
   display: flex;
@@ -72,7 +80,7 @@ function FinamAuth() {
     const [host, port] = addresValue.split(':')
     const tconnector = Tconnector.getTc({
       isHFT,
-      host: '127.0.0.1',
+      host: HOST_IP,
       port: '12345',
     })
 
