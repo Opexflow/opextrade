@@ -7,6 +7,7 @@ import useInputOnChange from '../../hooks-utils/useInputOnChange'
 import Tconnector from '../../tconnector-sdk/tconnector'
 import { useRouter } from 'next/dist/client/router'
 import{useState,useEffect} from 'react'
+import Link from 'next/link'
 import {socketio} from '../../pages/socketio';
 const Main = styled.main`
   margin-top: 45px;
@@ -18,7 +19,7 @@ const ChangePassLinkStyled = styled(LinkStyled)`
   margin-left: auto;
   margin-top: 10px;
 `
-function ChangePassFinam({ changePage }) {
+function ChangePassFinam() {
 
   const [isSubmit,setIsSubmit]=useState(false)
   const [isNotCorrect,setIsNotCorrect]=useState('')
@@ -47,13 +48,13 @@ function ChangePassFinam({ changePage }) {
   {
     const tconnector = Tconnector.getTc({
       isHFT: false,
-      host: 'localhost',
+      host: '127.0.0.1',
       port: '12345',
     })
     // console.log({ oldpass, newpass })
     const res = await tconnector.api.change_pass({ oldpass, newpass })
     console.log({ res })
-    if (!res.error) push('/')
+  
   }
   setIsLoading(false)
   console.log(`our state ${isNotCorrect}`)
@@ -77,9 +78,11 @@ function ChangePassFinam({ changePage }) {
             placeholder="new password"
           />
           {isNotCorrect&&<WrongLogin>{isNotCorrect}</WrongLogin>}
-          <ChangePassLinkStyled onClick={changePage}>
+          <Link href='/finam'>
+          <ChangePassLinkStyled>
             Sign in
           </ChangePassLinkStyled>
+          </Link>
         </AuthForm>
         {!isLoading &&<ButtonStyled onClick={handleOnSubmit}>Submit</ButtonStyled>}
         {isLoading && <LoadingStyled>Loding....</LoadingStyled>}

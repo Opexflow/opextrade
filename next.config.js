@@ -4,6 +4,9 @@ module.exports = {
         locales: ['en', 'ru', 'tr'],
         defaultLocale: 'ru',
     },
+    eslint: {
+        ignoreDuringBuilds: true,
+      },
 
     // async redirects() {
     //   return [

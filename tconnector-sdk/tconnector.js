@@ -18,18 +18,16 @@ class Api {
     ]
     this.#load()
   }
-  async #request(params) {
+  
+  async #request(params){
     const { host, port } = this.tconnector
     const url = new URL(`http://${host}:${port}`)
-    url.search = new URLSearchParams({
-      ...params,
-    })
+    url.search = new URLSearchParams({...params})
     try {
-      const response = await fetch(url, {
-        method: 'GET',
-      })
+      const response = await fetch(url, { method: 'GET'})
       return response.json()
-    } catch (e) {
+    } 
+    catch (e) {
       console.log("error")
       console.log(e)
       return e
