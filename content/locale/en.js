@@ -1,5 +1,5 @@
 export const en = {
-  '/': {
-    auth: '',
-  },
-}
+    '/': {
+        auth: '',
+    },
+};

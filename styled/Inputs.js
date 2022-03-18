@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const AuthInput = styled.input`
   width: 100%;
@@ -12,7 +12,7 @@ export const AuthInput = styled.input`
     height: 45px;
     font-size: 20px;
   }
-`
+`;
 export const AuthForm = styled.form`
   width: 85%;
   max-width: 600px;
@@ -20,4 +20,4 @@ export const AuthForm = styled.form`
   flex-direction: column;
   align-items: center;
   margin-bottom: 15px;
-`
+`;

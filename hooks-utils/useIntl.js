@@ -1,8 +1,8 @@
-import { useIntl as useReactIntl } from 'react-intl'
+import { useIntl as useReactIntl } from 'react-intl';
 
 export function useIntl() {
-  const { formatMessage } = useReactIntl()
-  const f = (id) => formatMessage({ id })
+    const { formatMessage } = useReactIntl();
+    const f = id => formatMessage({ id });
 
-  return { f }
+    return { f };
 }

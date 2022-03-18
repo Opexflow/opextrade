@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const AuthenticationTitle = styled.h1`
   min-width: 70%;
@@ -14,7 +14,7 @@ export const AuthenticationTitle = styled.h1`
     max-width: 70%;
     font-size: 55px;
   }
-`
+`;
 export const LinkStyled = styled.a`
   cursor: pointer;
   font-size: 24px;
@@ -22,7 +22,7 @@ export const LinkStyled = styled.a`
   color: #0c558c;
   border-bottom: 3px solid #0c558c;
   font-weight: bold;
-`
+`;
 export const Logs = styled.h1`
   min-width: 70%;
   text-align: center;
@@ -37,4 +37,4 @@ export const Logs = styled.h1`
     max-width: 70%;
     font-size: 55px;
   }
-`
+`;
