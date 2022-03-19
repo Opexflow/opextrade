@@ -33,6 +33,8 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
     "@babel/eslint-plugin": "^7.17.7",
+    "antd": "^4.19.2",
+    "axios": "^0.26.1",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
@@ -41,6 +43,10 @@
     "eslint-plugin-optimize-regex": "^1.2.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-sonarjs": "^0.11.0"
+    "eslint-plugin-sonarjs": "^0.11.0",
+    "highcharts": "^10.0.0",
+    "highcharts-react-official": "^3.1.0",
+    "react-loader-spinner": "^5.1.4",
+    "react-tradingview-widget": "^1.3.2"
   }
 }
