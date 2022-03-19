@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import HeaderLayout from '../components/layout/HeaderLayout';
-import { ButtonStyled, LoadingStyled, SocketInfo, InputError, WrongLogin } from '../styled/Buttons';
+import { ButtonStyled, LoadingStyled, SocketInfo, InputError, AuthMessage } from '../styled/Buttons';
 import { AuthenticationTitle, LinkStyled } from '../styled/Texts';
 import { AuthInput, AuthForm } from '../styled/inputs';
 import Checkbox from '../components/checkbox/Checkbox';
@@ -39,11 +39,17 @@ const ChangePassLinkStyled = styled(LinkStyled)`
   margin-top: 10px;
 `;
 
+const authMessages = {
+    expired: 'Password expired. Please change the password.',
+    error: 'Wrong login or password.',
+};
+
 function FinamAuth() {
     const [isHFT, seetIsHFT] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [islogincorrect, setIslogincorrect] = useState('');
+    const [authMessage, setAuthMessage] = useState('');
     const [isSubmit, setIsSubmit] = useState(false);
+    const [tconnectorState, setTconnector] = useState();
     const [loginValue, loginOnChange] = useInputOnChange();
     const [passValue, passOnChange] = useInputOnChange();
     const [addresValue, addresOnChange] = useInputOnChange('tr1.finam.ru:3900');
@@ -55,51 +61,65 @@ function FinamAuth() {
         seetIsHFT(prev => !prev);
     };
 
-    useEffect(() => {
-        socketio().on('login-error', async res => {
-            setIslogincorrect(res);
-        });
-        if (islogincorrect) {
+    useEffect(async () => {
+        // TODO: typescript!!!
+        /**
+         * @param {Boolean} error
+         * @param {Boolean} expired
+         * @param {Boolean} connected
+         */
+        socketio().on('auth', async d => {
             setIsLoading(false);
-        }
 
-        return ()=>{
-            socketio().off('login-error');
+            console.log(d);
+            if (d.connected) {
+                push('/logs');
+                socketio().off('auth');
+            } else if (d.expired) {
+                setAuthMessage(authMessages.expired);
+            } else if (d.checkStatus && tconnectorState) {
+                console.log('checkserverstatus');
+                tconnectorState.api.server_status();
+            } else {
+                setAuthMessage(authMessages.error);
+            }
+        });
+
+        return () => {
+            console.log('socket off');
+            socketio().off('auth');
         };
-    }
-    , [socketio(), islogincorrect]);
+    }, [socketio(), authMessage, tconnectorState]);
 
     //subscribe to event
 
-    const handleOnSubmit = async () => {
+    const handleOnSubmit = React.useCallback(async function() {
         getUpdate2();
-        setIslogincorrect('');
+        setAuthMessage('');
         setIsSubmit(true);
+
+        console.log('handleOnSubmit', loginValue, passValue);
+
         if (loginValue && passValue) {
             setIsLoading(true);
             const [host, port] = addresValue.split(':');
-            const tconnector = Tconnector.getTc({
+            
+            const t = tconnectorState || Tconnector.getTc({
                 isHFT,
                 host: HOST_IP,
                 port: '12345',
             });
 
-            const res = await tconnector.api.connect({
+            t.api.connect({
                 login: loginValue,
                 password: passValue,
                 host,
                 port,
             });
 
-            console.log(res.error);
-
-            // socket.on('another',message=>{
-            //   console.log(message)
-            // })
-
-            if (!res.error) push('/logs');
+            setTconnector(t);
         }
-    };
+    }, [getUpdate2, authMessage, isSubmit, loginValue, passValue, isHFT, tconnectorState]);
 
     return (
         <>
@@ -124,7 +144,7 @@ function FinamAuth() {
                         value={addresValue}
                         onChange={addresOnChange}
                     />
-                    {<WrongLogin></WrongLogin>}
+                    {<AuthMessage></AuthMessage>}
                     <Link href="changepassword">
                         <ChangePassLinkStyled>
             change pass
@@ -139,7 +159,7 @@ function FinamAuth() {
                         </Checkbox>
                     </CheckboxesWrapper>
                 </AuthForm>
-                {islogincorrect && <WrongLogin>{islogincorrect}</WrongLogin>}
+                {authMessage && <AuthMessage>{authMessage}</AuthMessage>}
                 {!isLoading && <ButtonStyled onClick={handleOnSubmit}>Submit</ButtonStyled>}
                 {isLoading && <LoadingStyled>Loading....</LoadingStyled>}
             </Main>

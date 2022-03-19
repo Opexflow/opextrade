@@ -25,7 +25,9 @@ class Api {
 
     url.search = new URLSearchParams({ ...params });
     try {
-      const response = await fetch(url, { method: 'GET' });
+      const response = await fetch(url, { method: 'GET', headers: {
+        'Cache-Control': 'no-cache',
+      } });
 
       return response.json();
     } catch (e) {

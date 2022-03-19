@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import HeaderLayout from '../layout/HeaderLayout'
-import { ButtonStyled,InputError,WrongLogin,LoadingStyled } from '../../styled/Buttons'
+import { ButtonStyled,InputError,AuthMessage,LoadingStyled } from '../../styled/Buttons'
 import { AuthenticationTitle, LinkStyled } from '../../styled/Texts'
 import { AuthInput, AuthForm } from '../../styled/inputs'
 import useInputOnChange from '../../hooks-utils/useInputOnChange'
@@ -77,7 +77,7 @@ function ChangePassFinam() {
             onChange={newpassOnChange}
             placeholder="new password"
           />
-          {isNotCorrect&&<WrongLogin>{isNotCorrect}</WrongLogin>}
+          {isNotCorrect&&<AuthMessage>{isNotCorrect}</AuthMessage>}
           <Link href='/finam'>
           <ChangePassLinkStyled>
             Sign in

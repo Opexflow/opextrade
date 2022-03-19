@@ -55,7 +55,8 @@ const Title = styled.div`
 function FinamLog() {
   const [logs, setLogs] = useState([])
   const [isIncoming, setIsincoming] = useState(false)
-  const { push } = useRouter()
+  const { push } = useRouter();
+  let tabs;
 
   useEffect(() => {
     socketio().on("show-logs", async (res) => {
@@ -83,7 +84,15 @@ function FinamLog() {
      <SideNav blink={isIncoming}></SideNav>
       <Main>
         <Logs>Logs</Logs>
-        {logs.map(log=><List key={log.news_header.id}><Timestamp>{log.news_header.timestamp}</Timestamp><Source>{log.news_header.source}</Source><Title>{log.news_header.title}</Title></List>)}
+
+
+
+        {logs.map((log, i) => <List key={i}>
+            {/* <Timestamp>{log.news_header.timestamp}</Timestamp>
+            <Source>{log.news_header.source}</Source>
+            <Title>{log.news_header.title}</Title> */}
+            <Title><pre>{JSON.stringify(log, null, 4)}</pre></Title>
+          </List>)}
       </Main>
       </Container>
     </>

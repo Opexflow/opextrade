@@ -10,7 +10,6 @@ margin-top:60px;
 const Content = styled.h1`
   min-width: 50%;
   margin-top:15px;
-  text-align: center;
   font-weight: bold;
   font-size: 30px;
   line-height: 50px;

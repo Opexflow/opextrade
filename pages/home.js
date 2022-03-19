@@ -1,7 +1,7 @@
 // import React, {useState } from 'react'
 // import styled from 'styled-components'
 // import HeaderLayout from '../components/layout/HeaderLayout'
-// import { ButtonStyled,LoadingStyled,SocketInfo,InputError,WrongLogin } from '../styled/Buttons'
+// import { ButtonStyled,LoadingStyled,SocketInfo,InputError,AuthMessage } from '../styled/Buttons'
 // import { AuthenticationTitle, LinkStyled } from '../styled/Texts'
 // import { AuthInput, AuthForm } from '../styled/inputs'
 // import Checkbox from '../components/checkbox/Checkbox'
@@ -114,7 +114,7 @@
 //             value={addresValue}
 //             onChange={addresOnChange}
 //           />
-//           {<WrongLogin></WrongLogin>}
+//           {<AuthMessage></AuthMessage>}
 //           <ChangePassLinkStyled onClick={changePage}>
 //             change pass
 //           </ChangePassLinkStyled>
@@ -127,7 +127,7 @@
 //             </Checkbox>
 //           </CheckboxesWrapper>
 //         </AuthForm>
-//         {islogincorrect&&<WrongLogin>{islogincorrect}</WrongLogin>}
+//         {islogincorrect&&<AuthMessage>{islogincorrect}</AuthMessage>}
 //         {!isLoading &&<ButtonStyled onClick={handleOnSubmit}>Submit</ButtonStyled>}
 //         {isLoading&&<LoadingStyled>Loding....</LoadingStyled>}
 //       </Main>

@@ -19,7 +19,7 @@ export const SocketInfo = styled.div`
   color: brown;
   font-size: 25px;
 `;
-export const WrongLogin = styled.div`
+export const AuthMessage = styled.div`
   color: brown;
   padding-top:10px;
   padding-bottom:7px;
