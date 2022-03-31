@@ -48,6 +48,7 @@ const Source = styled.div`
 `
 const Title = styled.div`
   margin: auto;
+  word-wrap: break-word;
   margin-top: 10px;
   font-size: 18px;
 `

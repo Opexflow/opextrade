@@ -10,7 +10,7 @@ import useInputOnChange from '../hooks-utils/useInputOnChange';
 import { useRouter } from 'next/dist/client/router';
 
 import Link from 'next/link';
-import { socketio, getUpdate2 } from '../pages/socketio';
+import { socketio, getUpdate2 } from './socketio';
 
 const os = require('os');
 const ip = require('ip');
@@ -69,18 +69,18 @@ function FinamAuth() {
          * @param {Boolean} connected
          */
         socketio().on('auth', async d => {
-            setIsLoading(false);
-
             console.log(d);
             if (d.connected) {
                 push('/logs');
                 socketio().off('auth');
             } else if (d.expired) {
+                setIsLoading(false);
                 setAuthMessage(authMessages.expired);
             } else if (d.checkStatus && tconnectorState) {
                 console.log('checkserverstatus');
                 tconnectorState.api.server_status();
-            } else {
+            } else if(d.error){
+                setIsLoading(false);
                 setAuthMessage(authMessages.error);
             }
         });
@@ -94,7 +94,6 @@ function FinamAuth() {
     //subscribe to event
 
     const handleOnSubmit = React.useCallback(async function() {
-        getUpdate2();
         setAuthMessage('');
         setIsSubmit(true);
 
@@ -119,7 +118,7 @@ function FinamAuth() {
 
             setTconnector(t);
         }
-    }, [getUpdate2, authMessage, isSubmit, loginValue, passValue, isHFT, tconnectorState]);
+    }, [ authMessage, isSubmit, loginValue, passValue, isHFT, tconnectorState]);
 
     return (
         <>

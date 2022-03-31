@@ -1,3 +1,5 @@
+import axios from "axios";
+
 class Api {
   constructor(tconnector) {
     this.tconnector = tconnector;
@@ -25,11 +27,11 @@ class Api {
 
     url.search = new URLSearchParams({ ...params });
     try {
-      const response = await fetch(url, { method: 'GET', headers: {
+      const response = await axios({url,  method: 'GET', headers: {
         'Cache-Control': 'no-cache',
       } });
-
-      return response.json();
+    return response
+    
     } catch (e) {
       console.log('error');
       console.log(e);

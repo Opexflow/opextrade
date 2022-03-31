@@ -9,13 +9,13 @@ import PriceIndicator from 'highcharts/modules/price-indicator.js';
 import FullScreen from 'highcharts/modules/full-screen.js';
 import StockTools from 'highcharts/modules/stock-tools.js';
 import axios from 'axios';
+import { socketio,initiateSocketConnection} from './socketio';
 import { ArrowUpOutlined } from '@ant-design/icons';
 import classnames from 'classnames';
 import { Popover } from 'antd';
 import {
     TabContent, TabPane, Nav,
-    NavItem, NavLink, Row, Col, Container, Button, Modal, ModalHeader, ModalBody, ModalFooter,
-} from 'reactstrap';
+    NavItem, NavLink, Row, Col, Container, Button, Modal, ModalHeader, ModalBody, ModalFooter,} from 'reactstrap';
 import { volumeData } from './volumeData';
 import { priceData } from './priceData';
 import { TailSpin } from 'react-loader-spinner';
@@ -30,7 +30,7 @@ FullScreen(Highcharts);
 StockTools(Highcharts);
 
 const Demo2 = () => {
-    const [data, setData] = useState([]);
+    const [dataa, setData] = useState([]);
     const [price, setPrice] = useState({});
     const [marker, setMarker] = useState({});
     const [volume, setVolume] = useState([]);
@@ -43,41 +43,93 @@ const Demo2 = () => {
     const toggle1 = () => setModal(!modal);
     const toggle2 = () => setModal1(!modal1);
 
+    // useEffect(async() => {
+    //     // eslint-disable-next-line promise/catch-or-return
+    //     console.log("data")
+
+    //     await axios.get('http://127.0.0.1:12345/?command=gethistorydata&period=2&count=162&reset=true&HftOrNot=NotHft')
+        
+    //         socketio().on("show-logs", async (data) => {
+    //         console.log(data)
+    //         setData(data);
+    //         const price = {
+    //             high: data.candle.slice(-1)[0][2],
+    //             low: data.candle.slice(-1)[0][3],
+    //             date: data.candle.slice(-20)[0][0],
+    //         };
+    //         setPrice(price);
+    //         const volume_filter = [];
+    //         for (let i = 0; i < data.candle.length; i++) {
+    //             volume_filter.push([data.candle[i][0], Math.floor(Math.random() * 1000000000)]);
+    //         }
+    //         setVolume([volume_filter]);
+    //         const buy_price = [];
+    //         const sell_price = [];
+    //         let indexOfMinPrice = 100;
+    //         // eslint-disable-next-line promise/always-return
+    //         for (let j = 1 * 101; j < data.candle.length; j += 100) {
+    //             if (data.data[j][2] < data.candle[indexOfMinPrice][2]) {
+    //                 indexOfMinPrice = j;
+    //                 sell_price.push({ x: data.candle[j][0] });
+    //             } else {
+    //                 indexOfMinPrice = j;
+    //                 buy_price.push({ x: data.candle[j][0] });
+    //             }
+    //         }
+    //         setMarker({ buy_price: buy_price, sell_price: sell_price });
+    //         // eslint-disable-next-line no-console
+    //         console.log('data', sell_price, buy_price, marker);
+    //     })
+    //     return ()=>{
+    
+    //         socketio().off("widget-data")
+    //       }
+    //         //   Milliseconds in a day
+    // }, [socketio()]);
+
     useEffect(async () => {
-        // eslint-disable-next-line promise/catch-or-return
-        axios.get('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/new-intraday.json').then(async data => {
-            setData(data.data);
+        axios.get('http://127.0.0.1:12345/?command=gethistorydata&period=2&count=162&reset=true&HftOrNot=NotHft')
+        socketio().on("show-widget", async (data) => {
+          console.log("data")
+          console.log(data)
+            setData(data);
             const price = {
-                high: data.data.slice(-1)[0][2],
-                low: data.data.slice(-1)[0][3],
-                date: data.data.slice(-20)[0][0],
+                high: data.candles.candle.slice(-1)[0][2],
+                low: data.candles.candle.slice(-1)[0][3],
+                date: data.candles.candle.slice(-20)[0][0],
             };
             setPrice(price);
             const volume_filter = [];
-            for (let i = 0; i < data.data.length; i++) {
-                volume_filter.push([data.data[i][0], Math.floor(Math.random() * 1000000000)]);
+            for (let i = 0; i < data.candles.candle.length; i++) {
+                volume_filter.push([data.candles.candle[i][0], Math.floor(Math.random() * 1000000000)]);
             }
             setVolume([volume_filter]);
             const buy_price = [];
             const sell_price = [];
             let indexOfMinPrice = 100;
             // eslint-disable-next-line promise/always-return
-            for (let j = 1 * 101; j < data.data.length; j += 100) {
-                if (data.data[j][2] < data.data[indexOfMinPrice][2]) {
+            for (let j = 1 * 101; j < data.candles.candle.length; j += 100) {
+                if (data.candles.candle[j][2] < data.candles.candle[indexOfMinPrice][2]) {
                     indexOfMinPrice = j;
-                    sell_price.push({ x: data.data[j][0] });
+                    sell_price.push({ x: data.candles.candle[j][0] });
                 } else {
                     indexOfMinPrice = j;
-                    buy_price.push({ x: data.data[j][0] });
+                    buy_price.push({ x: data.candles.candle[j][0] });
                 }
             }
             setMarker({ buy_price: buy_price, sell_price: sell_price });
             // eslint-disable-next-line no-console
             console.log('data', sell_price, buy_price, marker);
-
-            // Milliseconds in a day
-        });
-    }, []);
+          
+        })
+        console.log("reach")
+        
+        return ()=>{
+        
+         socketio().off("show-widget")
+       }
+      }
+      , [socketio()]);
 
     const datas = {
         name: 'SBI',
@@ -218,7 +270,7 @@ const Demo2 = () => {
         series: [{
             type: 'candlestick',
             name: 'SBI',
-            data: data,
+            data: dataa,
             id: 'myId',
             tooltip: {
                 valueDecimals: 2,
