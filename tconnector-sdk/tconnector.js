@@ -16,7 +16,7 @@ class Api {
       'cancelorder',
       'cancelstoporder',
       'connect',
-      'change_pass',
+      'change_pass'
     ];
     this.#load();
   }
@@ -28,7 +28,7 @@ class Api {
     url.search = new URLSearchParams({ ...params });
     try {
       return await axios({ url, method: 'GET', headers: {
-        'Cache-Control': 'no-cache',
+        'Cache-Control': 'no-cache'
       } });
     } catch (e) {
       console.log('error');
@@ -39,7 +39,7 @@ class Api {
   }
 
   async #call(params) {
-    const { HftOrNot, account } = this.tconnector;
+    const { HftOrNot } = this.tconnector;
 
     return await this.#request({ HftOrNot, ...params });
 
@@ -47,14 +47,10 @@ class Api {
   }
 
   #scaffold(command) {
-    return (args) => {
-      const { HftOrNot } = this.tconnector;
-
-      return this.#call({
-        command,
-        ...args,
-      });
-    };
+    return (args) => this.#call({
+      command,
+      ...args
+    });
   }
   #load() {
     for (const command of this.commands) {

@@ -11,19 +11,19 @@ export const disconnectSocket = () => {
     if (socket) socket.disconnect();
 };
 export const getUpdate = () => {
-    socket.on('conn', (res) => console.log(res));
+    socket.on('conn', res => console.log(res));
 };
 export const getUpdate2 = () => {
-    socket.on('conn2', (res) => console.log(res));
+    socket.on('conn2', res => console.log(res));
 };
 export const sendData = () => {
     socket.emit('res', 'from client');
 };
 export const getPasswordStatus = () => {
-    socket.on('incorrect-data', (res) => console.log(res));
+    socket.on('incorrect-data', res => console.log(res));
 };
 export const passwordChangeError = () => {
-    return socket.on('password-change-error', (res) => {
+    return socket.on('password-change-error', res => {
         console.log(res);
 
         return res;
