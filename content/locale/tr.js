@@ -1,5 +1,5 @@
 export const tr = {
     '/': {
-        auth: '',
-    },
+        auth: ''
+    }
 };

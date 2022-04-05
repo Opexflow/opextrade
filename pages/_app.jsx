@@ -12,7 +12,7 @@ import useLang from '../content/locale'
 import { useRouter } from 'next/router'
 
 import { useEffect } from "react";
-import {initiateSocketConnection,disconnectSocket} from '../pages/socketio';
+import {initiateSocketConnection,disconnectSocket} from './socketio';
 import 'antd/dist/antd.css';
 
 function MyApp({ Component, pageProps }) {
