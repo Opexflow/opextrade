@@ -1,16 +1,16 @@
-import React from 'react'
-import { useIntl } from '../hooks-utils/useIntl'
-import styled, { css } from 'styled-components'
-import HeaderLayout from '../components/layout/HeaderLayout'
-import Image from 'next/image'
-import Link from 'next/link'
+import React from "react";
+import { useIntl } from "../hooks-utils/useIntl";
+import styled, { css } from "styled-components";
+import HeaderLayout from "../components/layout/HeaderLayout";
+import Image from "next/image";
+import Link from "next/link";
 
 const Main = styled.main`
   margin-top: 45px;
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 const Authentication = styled.h1`
   font-weight: bold;
   font-size: 60px;
@@ -20,7 +20,7 @@ const Authentication = styled.h1`
   @media (max-width: 1044px) {
     display: none;
   }
-`
+`;
 
 const AuthWithLink = styled.a`
   margin-top: 40px;
@@ -40,10 +40,10 @@ const AuthWithLink = styled.a`
     css`
       opacity: 0.5;
     `}
-`
+`;
 const BrokerTitle = styled.h4`
   margin-left: 10px;
-`
+`;
 const BrokerIcon = styled.div`
   display: inline-block;
   width: 70px;
@@ -51,12 +51,11 @@ const BrokerIcon = styled.div`
   font-size: 39px;
   text-align: center;
   line-height: 70px;
-`
+`;
 
 function Home() {
-
-const { f } = useIntl()
-console.log(f)
+  const { f } = useIntl();
+  console.log(f);
   return (
     <>
       <HeaderLayout />
@@ -71,12 +70,11 @@ console.log(f)
         <Link passHref href="/tinkoff">
           <AuthWithLink>
             <Image
-              width="70"
-              height="70"
-              src="/images/tinkoff.png"
+              width="190"
+              height="43"
+              src="/images/tinkoff-new.svg"
               alt="Tinkoff"
             />
-            <BrokerTitle>Tinkoff</BrokerTitle>
           </AuthWithLink>
         </Link>
         {/* <Link passHref href="/Ib"> */}
@@ -94,7 +92,7 @@ console.log(f)
         </Link>
       </Main>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
