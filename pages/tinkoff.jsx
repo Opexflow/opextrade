@@ -6,6 +6,7 @@ import { AuthInput, AuthForm } from "../styled/inputs";
 import { useState } from "react";
 import Link from "next/link";
 import Checkbox from "../components/checkbox/Checkbox";
+import useInputOnChange from "../hooks-utils/useInputOnChange";
 
 const Main = styled.main`
   margin-top: 45px;
@@ -27,6 +28,9 @@ const CheckboxesWrapper = styled.div`
 `;
 
 function TinkoffAuth() {
+  const [loginValue, loginOnChange] = useInputOnChange();
+  const [passValue, passOnChange] = useInputOnChange();
+  const [addresValue, addresOnChange] = useInputOnChange("tinkoff");
   const [isSecretToken, setIsSecretToken] = useState(false);
 
   const handleOnSecretTokenChange = () => {
@@ -39,9 +43,21 @@ function TinkoffAuth() {
       <Main>
         <AuthenticationTitle>Tinkoff</AuthenticationTitle>
         <AuthForm>
-          <AuthInput placeholder="Login"></AuthInput>
-          <AuthInput placeholder="Password"></AuthInput>
-          <AuthInput placeholder="Adress and Port"></AuthInput>
+          <AuthInput
+            placeholder="Login"
+            value={loginValue}
+            onChange={loginOnChange}
+          ></AuthInput>
+          <AuthInput
+            placeholder="Password"
+            value={passValue}
+            onChange={passOnChange}
+          ></AuthInput>
+          <AuthInput
+            placeholder="Adress and Port"
+            value={addresValue}
+            onChange={addresOnChange}
+          ></AuthInput>
           <Link href="changepassword">
             <ChangePassLinkStyled>change pass</ChangePassLinkStyled>
           </Link>
