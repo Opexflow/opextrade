@@ -42,53 +42,9 @@ const Demo2 = () => {
     // Toggle for Modal
     const toggle1 = () => setModal(!modal);
     const toggle2 = () => setModal1(!modal1);
-
-    // useEffect(async() => {
-    //     // eslint-disable-next-line promise/catch-or-return
-    //     console.log("data")
-
-    //     await axios.get('http://127.0.0.1:12345/?command=gethistorydata&period=2&count=162&reset=true&HftOrNot=NotHft')
-        
-    //         socketio().on("show-logs", async (data) => {
-    //         console.log(data)
-    //         setData(data);
-    //         const price = {
-    //             high: data.candle.slice(-1)[0][2],
-    //             low: data.candle.slice(-1)[0][3],
-    //             date: data.candle.slice(-20)[0][0],
-    //         };
-    //         setPrice(price);
-    //         const volume_filter = [];
-    //         for (let i = 0; i < data.candle.length; i++) {
-    //             volume_filter.push([data.candle[i][0], Math.floor(Math.random() * 1000000000)]);
-    //         }
-    //         setVolume([volume_filter]);
-    //         const buy_price = [];
-    //         const sell_price = [];
-    //         let indexOfMinPrice = 100;
-    //         // eslint-disable-next-line promise/always-return
-    //         for (let j = 1 * 101; j < data.candle.length; j += 100) {
-    //             if (data.data[j][2] < data.candle[indexOfMinPrice][2]) {
-    //                 indexOfMinPrice = j;
-    //                 sell_price.push({ x: data.candle[j][0] });
-    //             } else {
-    //                 indexOfMinPrice = j;
-    //                 buy_price.push({ x: data.candle[j][0] });
-    //             }
-    //         }
-    //         setMarker({ buy_price: buy_price, sell_price: sell_price });
-    //         // eslint-disable-next-line no-console
-    //         console.log('data', sell_price, buy_price, marker);
-    //     })
-    //     return ()=>{
-    
-    //         socketio().off("widget-data")
-    //       }
-    //         //   Milliseconds in a day
-    // }, [socketio()]);
-
+   
     useEffect(async () => {
-        axios.get('http://127.0.0.1:12345/?command=gethistorydata&period=2&count=162&reset=true&HftOrNot=NotHft')
+        axios.get('http://127.0.0.1:12345/?command=gethistorydata&period=2&count=162&reset=true&HftOrNot=NotHft&page=widget')
         socketio().on("show-widget", async (data) => {
           console.log("data")
           console.log(data)
@@ -107,6 +63,7 @@ const Demo2 = () => {
             const buy_price = [];
             const sell_price = [];
             let indexOfMinPrice = 100;
+            
             // eslint-disable-next-line promise/always-return
             for (let j = 1 * 101; j < data.candles.candle.length; j += 100) {
                 if (data.candles.candle[j][2] < data.candles.candle[indexOfMinPrice][2]) {
