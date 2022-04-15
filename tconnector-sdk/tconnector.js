@@ -22,6 +22,7 @@ class Api {
   }
 
   async #request(params) {
+    console.log("request")
     const { host, port } = this.tconnector;
     const url = new URL(`http://${host}:${port}`);
 
@@ -58,13 +59,14 @@ class Api {
     }
   }
 }
-
 class Tconnector {
   constructor({ isHFT, host, port }) {
     this.createdTc = null;
     this.isHFT = isHFT;
     this.host = host;
     this.port = port;
+    console.log("this"+this)
+    console.log(this)
     this.api = new Api(this);
   }
   static getTc(...args) {
