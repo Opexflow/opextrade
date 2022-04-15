@@ -16,20 +16,20 @@ class Api {
       'cancelorder',
       'cancelstoporder',
       'connect',
-      'change_pass'
+      'change_pass',
     ];
     this.#load();
   }
 
   async #request(params) {
-    console.log("request")
+    console.log('request');
     const { host, port } = this.tconnector;
     const url = new URL(`http://${host}:${port}`);
 
     url.search = new URLSearchParams({ ...params });
     try {
       return await axios({ url, method: 'GET', headers: {
-        'Cache-Control': 'no-cache'
+        'Cache-Control': 'no-cache',
       } });
     } catch (e) {
       console.log('error');
@@ -50,7 +50,7 @@ class Api {
   #scaffold(command) {
     return (args) => this.#call({
       command,
-      ...args
+      ...args,
     });
   }
   #load() {
@@ -65,8 +65,8 @@ class Tconnector {
     this.isHFT = isHFT;
     this.host = host;
     this.port = port;
-    console.log("this"+this)
-    console.log(this)
+    console.log('this' + this);
+    console.log(this);
     this.api = new Api(this);
   }
   static getTc(...args) {

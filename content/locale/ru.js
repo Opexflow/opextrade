@@ -1,5 +1,5 @@
 export const ru = {
     '/': {
     // auth: '',
-    }
+    },
 };
