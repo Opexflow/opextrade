@@ -56,12 +56,19 @@ const Title = styled.div`
 function FinamLog() {
   const [logs, setLogs] = useState([])
   const [isIncoming, setIsincoming] = useState(false)
+  const localstore=[]
   const { push } = useRouter();
   let tabs;
   useEffect(() => {
+    if(logs.length==0 && localStorage.getItem('logs'))
+    {
+      console.log(JSON.parse(localStorage.getItem('logs')))
+      setLogs(JSON.parse(localStorage.getItem('logs')))
+    }
     socketio().on("show-logs", async (res) => {
-      console.log(res)
-    setLogs((prev)=>{return [...prev,res]})
+     localstore.push(res)
+    setLogs((prev)=>{return [res,...prev]})
+    localStorage.setItem('logs',JSON.stringify(localstore))
     setIsincoming(true)
     setTimeout(()=>{
       console.log("to false")

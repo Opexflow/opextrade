@@ -42,13 +42,18 @@ const Demo2 = () => {
     // Toggle for Modal
     const toggle1 = () => setModal(!modal);
     const toggle2 = () => setModal1(!modal1);
-   
+    const localstore=[]
     useEffect(async () => {
+    //     if(logs.length==0 && localStorage.getItem('widget'))
+    // {
+    //   console.log(JSON.parse(localStorage.getItem('widget')))
+    //   setData(JSON.parse(localStorage.getItem('widget')))
+    // }
         axios.get('http://127.0.0.1:12345/?command=gethistorydata&period=2&count=162&reset=true&HftOrNot=NotHft&page=widget')
         socketio().on("show-widget", async (data) => {
-          console.log("data")
-          console.log(data)
+            // localstore.push(data)
             setData(data);
+            // localStorage.setItem('widget',JSON.stringify(localstore))
             const price = {
                 high: data.candles.candle.slice(-1)[0][2],
                 low: data.candles.candle.slice(-1)[0][3],
