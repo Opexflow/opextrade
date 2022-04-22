@@ -9,6 +9,7 @@ export const ButtonStyled = styled.button`
   @media (min-width: 1044px) {
     font-size: 35px;
     border-radius: 23px;
+    
   }
 `;
 export const LoadingStyled = styled.div`

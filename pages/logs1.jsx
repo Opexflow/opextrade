@@ -52,7 +52,6 @@ const Title = styled.div`
   margin-top: 10px;
   font-size: 18px;
 `
-
 function FinamLog() {
   const [logs, setLogs] = useState([])
   const [isIncoming, setIsincoming] = useState(false)
