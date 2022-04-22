@@ -5,7 +5,7 @@ import { tr } from './tr';
 const langs = {
     ru,
     en,
-    tr
+    tr,
 };
 
 export default function useLang(router) {

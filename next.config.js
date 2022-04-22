@@ -2,11 +2,11 @@ module.exports = {
     reactStrictMode: true,
     i18n: {
         locales: ['en', 'ru', 'tr'],
-        defaultLocale: 'ru'
+        defaultLocale: 'ru',
     },
     eslint: {
-        ignoreDuringBuilds: true
-    }
+        ignoreDuringBuilds: true,
+    },
 
     // async redirects() {
     //   return [
